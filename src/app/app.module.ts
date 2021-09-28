@@ -1,32 +1,48 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {AppRoutingModule} from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { FooterComponent } from './compartida/footer/footer.component';
 import { HeaderComponent } from './compartida/header/header.component';
 import { AsideComponent } from './compartida/aside/aside.component';
-import { ProductosComponent } from './compartida/productos/productos.component';
+import { FooterComponent } from './compartida/footer/footer.component';
 import { CarruselComponent } from './compartida/carrusel/carrusel.component';
-import { LoginComponent } from './compartida/login/login.component';
-import { RegistroComponent } from './compartida/registro/registro.component';
-import { BarroslucoComponent } from './compartida/barrosluco/barrosluco.component';
-import { ItalianoComponent } from './compartida/italiano/italiano.component';
+
+
+import { ProductoComponent } from './general/producto/producto.component';
+import { CategoriaComponent } from './pages/categoria/categoria.component';
+import { HomeComponent } from './pages/home/home.component';
+import { PruebasComponent } from './general/pruebas/pruebas.component';
+import { RegistroComponent } from './general/registro/registro.component';
+import { LoginComponent } from './general/login/login.component';
+
+import {FormsModule} from '@angular/forms';
+
+import {HttpClientModule} from '@angular/common/http';
+import { CarritocomprasComponent } from './general/carritocompras/carritocompras.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    FooterComponent,
-    HeaderComponent,
-    AsideComponent,
-    ProductosComponent,
-    CarruselComponent,
-    LoginComponent,
-    RegistroComponent,
-    BarroslucoComponent,
-    ItalianoComponent
+  HeaderComponent,
+  ProductoComponent,
+  CategoriaComponent,
+  HomeComponent,
+  AsideComponent,
+  CarruselComponent,
+  FooterComponent,
+  PruebasComponent,
+  RegistroComponent,
+  LoginComponent,
+  CarritocomprasComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    // FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
