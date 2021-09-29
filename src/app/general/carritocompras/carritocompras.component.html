@@ -18,7 +18,6 @@
                 <th scope="col">Cantidad</th>
                 <th scope="col">Precio</th>
                 <th scope="col"></th>
-
             </tr>
         </thead>
         <tbody *ngFor="let item of carritocomprasService.listaproductos['productos']">
@@ -30,8 +29,6 @@
                 <td> {{item.cantidad}} </td>
                 <td>${{item.precio}}</td>
                 <td>
-                    <button (click)="updateInfo(item.id)" type="submit" class="btn btn-success" routerLinkActive="active" routerLink="/Info">saber mas</button> <br>
-                    <hr>
                     <button type="button" (click)="agregarCarrito(item.id, item.precio)" class="btn btn-success">Comprar</button>
                 </td>
             </tr>
@@ -40,7 +37,6 @@
     <label>hamburguesas compradas</label>
     <table id="bro" class="table table-info ">
         <thead>
-
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Nombre</th>
@@ -57,8 +53,6 @@
                     <button type="button" (click)="eliminar(itemm, item.precio)" class="btn btn-success">Eliminar</button>
                 </td>
             </tr>
-
-
         </tbody>
     </table>
     <label id="carro" for="basic-url" class="form-label">El total a Pagar es : ${{total}}</label>

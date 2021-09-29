@@ -31,16 +31,13 @@ total: number|null|any = 0;
 // para ver info de un card por separado
   this.carritocomprasService.setTheValueID(id);
     console.log("envio de id: ", id);
-
   }
-
   agregarCarrito(id: number|any, valor: number|any):void{
     // para sumar segun lo agregado en el carrito
         this.total = this.total + valor;
         //para agregar al carrito
         this.carritocompras.push(id);
       }
-
       isIdThere(id: number|any):boolean {
         return this.carritocompras.includes(id);
       }
