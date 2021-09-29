@@ -3,6 +3,7 @@ export interface Carritocompras {
     nombre?: string;
     descripcion?: string;
     precio?: number | string;
+    cantidad?: number | string;
     img?: string;
 
 }

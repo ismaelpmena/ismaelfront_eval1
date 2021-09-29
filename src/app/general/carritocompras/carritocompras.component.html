@@ -1,74 +1,65 @@
-<!-- ng if-->
-<button class="btn btn-primary" (click)="obtenerDia()">obtener dia</button>
-<p>el producto es: {{productoService.productos}}</p>
-<!--bindings-->
-<button class="btn btn-primary" (click)="sumarProducto()">sumar</button>
-<hr>
-<h3>{{Contador}}</h3>
-<button class="btn btn-primary" (click)="restarProducto()">restar</button>
-
-<!--agregar dia-->
 <div class="container">
-    <div class="row">
-        <div class="col-6">
-            <label for="nuevoproducto" class="sr-only">ingrese el producto</label>
-            <input type="text" class="form-control" id="nuevoproducto" [(ngModel)]="nuevoProducto" name="nuevoProducto" placeholder="ingrese el nuevo producto">
+    <label id="carro" for="basic-url" class="form-label">hamburguesas
+        <div class="col">
+            <form (submit)="buscarProducto()" class="d-flex">
+                <input [(ngModel)]="buscarlisto" name="buscarlisto" class="form-control me-2" type="search" placeholder="Buscar por id" aria-label="Buscar"> 
+                <button class="btn btn-success" type="submit">Buscar</button>
+            </form>
         </div>
-        <button type="button" class="btn btn primary mb-2" (click)=agregarProducto()>Agregar producto</button>
-    </div>
-</div>
-<!--ng for-->
+    </label>
+    <br>
+    <!--tabla del los productos para comprar-->
+    <table class="table table-primary " id="tabla">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col">Producto</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio</th>
+                <th scope="col"></th>
 
-<ul>
-    <li *ngFor="let dia of dias_semana; let i=index">
+            </tr>
+        </thead>
+        <tbody *ngFor="let item of carritocomprasService.listaproductos['productos']">
+            <tr *ngIf="item.nombre == buscarlisto || item.id == buscarlisto || buscarlisto== null || buscarlisto == ''">
+                <!-- form con los datos de nombre precio cantidad img id-->
+                <th scope="row">{{item.id}}</th>
+                <td> <img src='{{item.img}}' style="width: 150px; height: 150px" alt="imagen de hamburguesa"> </td>
+                <td>{{item.nombre}}</td>
+                <td> {{item.cantidad}} </td>
+                <td>${{item.precio}}</td>
+                <td>
+                    <button (click)="updateInfo(item.id)" type="submit" class="btn btn-success" routerLinkActive="active" routerLink="/Info">saber mas</button> <br>
+                    <hr>
+                    <button type="button" (click)="agregarCarrito(item.id, item.precio)" class="btn btn-success">Comprar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <label>hamburguesas compradas</label>
+    <table id="bro" class="table table-info ">
+        <thead>
 
-        <p *ngIf="getDiaNumber == i; else templateName">
-            <b>{{dia}}</b>
-        </p>
-        <ng-template #templateName>
-            {{dia}}
-        </ng-template>
-    </li>
-</ul>
-
-<!--eliminar dia -->
-<h3>el elemento eliminado es: {{eliminado}}</h3>
-<button class="btn btn-primary" (click)="eliminar()">eliminar</button>
-
-<!-- form-->
-
-<form (submit)="insertar()">
-    <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">correo</label>
-        <input [(ngModel)]="email" name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp">
-        <div id="emailHelp" class="form-text">pon tu correo completo</div>
-    </div>
-    <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">contraseña</label>
-        <input [(ngModel)]="password" name="password" type="password" class="form-control" id="password">
-    </div>
-    <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Precio</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let item of carritocomprasService.listaproductos['productos']; index as i">
+            <tr *ngFor="let itemm of carritocompras">
+                <th scope="row" *ngIf="itemm == (i+1)">{{item.id}}</th>
+                <td *ngIf="itemm == (i+1)">{{item.nombre}}</td>
+                <td *ngIf="itemm == (i+1)">${{item.precio}}</td>
+                <td *ngIf="itemm == (i+1)">
+                    <button type="button" (click)="eliminar(itemm, item.precio)" class="btn btn-success">Eliminar</button>
+                </td>
+            </tr>
 
 
-
-<div class="container" *ngFor='let item of productoService.productos'>
-    <div class="row-cols-2">
-        <div class="col-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">{{item.nombre}}</h5>
-                    <p class="card-text"><img src='{{item.img}}' width="300px" alt="hamburguesas"></p>
-                    <p class="card-text">${{item.precio}}</p>
-                    <p class="card-text">{{item.descripcion}}</p>
-                    <p class="card-text"> Categoria:{{categoriaService.cate.hamburguesas}}</p>
-                    <a href="carritodecompras" class="btn btn-primary">comprar</a>
-                </div>
-            </div>
-        </div>
-    </div>
+        </tbody>
+    </table>
+    <label id="carro" for="basic-url" class="form-label">El total a Pagar es : ${{total}}</label>
 </div>

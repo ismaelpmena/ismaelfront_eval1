@@ -1,64 +1,53 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { ProductosService } from 'src/app/services/productos.service';
-
+import { CarritocomprasService } from 'src/app/services/carritocompras.service';
+import { Producto } from 'src/app/interfaces/producto.interface';
 @Component({
   selector: 'app-carritocompras',
   templateUrl: './carritocompras.component.html',
   styleUrls: ['./carritocompras.component.css']
 })
 export class CarritocomprasComponent implements OnInit {
-
-  constructor(public categoriaService: CategoriaService, public productoService: ProductosService) { }
-  productos:Producto[]=[];
-
-
-
-Mes:number = new Date().getMonth()+1;
-nuevoDia:string="";
-
-Dia :number|null|string=null;
-Contador: number=0;
-dias_semana:string[]=['domingo','lunes','martes','miercoles','jueves','viernes','sabado'];
-eliminado: number|null|string|undefined=null;
+// definir variables 
+productos:Producto[]=[];
+buscar: String = "";
+buscarlisto: String|null|number = null;
+cantidad: number|null = null;
+carritocompras: number[]|any[] = []; 
+total: number|null|any = 0;
+  constructor(public categoriaService: CategoriaService,
+    public productoService: ProductosService,
+    public carritocomprasService: CarritocomprasService,
+    ) { }
   ngOnInit(): void {
   }
+  buscarProducto(){
+      //if(this.buscarlisto==this.productos(nombre)) {
+       // return this.productos.nombre;
+      //}
+  }
+  updateInfo(id: number|any): void{
+// para ver info de un card por separado
+  this.carritocomprasService.setTheValueID(id);
+    console.log("envio de id: ", id);
 
-//set y get
-get getMesNumber():number{
-  return this.Mes;
-}
-get getDiaNumber():number|null|string{
-  return this.Dia;
-}
-get getContadorNumber():number{
-  return this.Contador;
-}
+  }
 
-//metodos o funciones ( logica de negocio k trabajamos en frontend)
-obtenerMes(){
-  return this.Mes;
-}
+  agregarCarrito(id: number|any, valor: number|any):void{
+    // para sumar segun lo agregado en el carrito
+        this.total = this.total + valor;
+        //para agregar al carrito
+        this.carritocompras.push(id);
+      }
 
-obtenerDia():void{
-  this.Dia =new Date().getDay();
-}
-sumar(){
-  this.Contador++;
-}
-restar(){
-
-  this.Contador--;
-}
-agregarDia():void{
-  this.dias_semana.push(this.nuevoDia);
-}
-eliminar():void{
-  this.eliminado= this.dias_semana.pop();
-}
-insertar():void{
-console.log("metodo insertar1");
-console.log(this.email +""+ this.password);
-
-}
+      isIdThere(id: number|any):boolean {
+        return this.carritocompras.includes(id);
+      }
+// con el boton de eliminar elimina lo que se presione
+      eliminar(id: number|any, valor: number|any): void {
+        this.total =  this.total - valor ;
+        let index = this.carritocompras.indexOf(id);
+        this.carritocompras.splice(index, 1);
+      }
 }

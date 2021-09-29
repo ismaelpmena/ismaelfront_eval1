@@ -3,9 +3,10 @@ export interface Producto {
   nombre?: string;
   descripcion?: string;
   precio?: number | string;
+  cantidad?:number | string;
   img?: string;
 }
-interface Lista_productos{
+export interface Lista_productos{
   productos?: Producto[];
 }
 

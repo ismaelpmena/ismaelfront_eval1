@@ -2,7 +2,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Categoria } from '../interfaces/categoria.interface';
 
-//ng g s service/categoria
+//ng g s services/categoria.services
 @Injectable({
   providedIn: 'root'
 })
